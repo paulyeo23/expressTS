@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-import { controller } from "../controllers/controller";
+import { controllerFunctions } from "../controllers/controllerPostGres";
 import { crud as crudType } from "../interfaces/interfaces";
 import { Express, Application } from "express";
 
@@ -11,11 +11,12 @@ import { Express, Application } from "express";
 //     updateEmployee,
 //     deleteEmployee,
 //   }
+const employeeControllers = controllerFunctions();
 
 export const routes = (app: Application) => {
-  app.get("/employee", controller.getAllEmployees);
-  app.post("/employee", controller.createNewEmployee);
-  app.get("/employee/:emp_id", controller.getOneEmployee);
-  app.put("/employee/:emp_id", controller.updateEmployee);
-  app.delete("/employee/:emp_id", controller.deleteEmployee);
+  app.get("/employee", employeeControllers.getAllEmployees);
+  app.post("/employee", employeeControllers.createNewEmployee);
+  app.get("/employee/:emp_id", employeeControllers.getOneEmployee);
+  app.put("/employee/:emp_id", employeeControllers.updateEmployee);
+  app.delete("/employee/:emp_id", employeeControllers.deleteEmployee);
 };

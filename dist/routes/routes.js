@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.routes = void 0;
-const controller_1 = require("../controllers/controller");
+const controllerPostGres_1 = require("../controllers/controllerPostGres");
 // {
 //     getAllEmployee,
 //     createEmployee,
@@ -9,11 +9,12 @@ const controller_1 = require("../controllers/controller");
 //     updateEmployee,
 //     deleteEmployee,
 //   }
+const employeeControllers = (0, controllerPostGres_1.controllerFunctions)();
 const routes = (app) => {
-    app.get("/employee", controller_1.controller.getAllEmployees);
-    app.post("/employee", controller_1.controller.createNewEmployee);
-    app.get("/employee/:emp_id", controller_1.controller.getOneEmployee);
-    app.put("/employee/:emp_id", controller_1.controller.updateEmployee);
-    app.delete("/employee/:emp_id", controller_1.controller.deleteEmployee);
+    app.get("/employee", employeeControllers.getAllEmployees);
+    app.post("/employee", employeeControllers.createNewEmployee);
+    app.get("/employee/:emp_id", employeeControllers.getOneEmployee);
+    app.put("/employee/:emp_id", employeeControllers.updateEmployee);
+    app.delete("/employee/:emp_id", employeeControllers.deleteEmployee);
 };
 exports.routes = routes;
