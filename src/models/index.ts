@@ -1,12 +1,14 @@
 import sequelizePackage from "sequelize";
 import { Op } from "sequelize";
-import allConfig from "../config/config.js";
+import dotenv from "dotenv";
+dotenv.config({ path: "../.env" });
+import allConfig from "../../config/config";
 
 import initEmployeesModel from "./employee";
 const Sequelize = require("sequelize");
 
 const env = "development";
-const config = allConfig[env];
+export const config = allConfig[env];
 
 // const db: { [key: string]: sequelizePackage.Sequelize } = {};
 

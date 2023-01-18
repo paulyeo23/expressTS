@@ -57,10 +57,4 @@ const employeeFunctions = () => {
 };
 export default employeeFunctions;
 
-// return {
-//   getAllEmployees,
-//   createNewEmployee,
-//   getOneEmployee,
-//   updateEmployee,
-//   deleteEmployee,
-// }
+

@@ -5,9 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const routes_1 = require("./routes/routes");
 const express_1 = __importDefault(require("express"));
+const index_1 = __importDefault(require("./models/index"));
 // const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 // Initialise Express instance
 const app = (0, express_1.default)();
+console.log("config:", index_1.default);
 // Set CORS headers
 // app.use(
 //   cors({
