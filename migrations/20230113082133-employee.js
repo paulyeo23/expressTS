@@ -22,8 +22,7 @@ module.exports = {
       },
       department: {
         allowNull: false,
-        type: Sequelize.ENUM,
-        values: ["HR", "PS"],
+        type: Sequelize.STRING,
       },
       createdAt: {
         type: "TIMESTAMP",

@@ -6,17 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const routes_1 = require("./routes/routes");
 const express_1 = __importDefault(require("express"));
 const index_1 = __importDefault(require("./models/index"));
-// const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const dotenv_1 = __importDefault(require("dotenv"));
+const cors_1 = __importDefault(require("cors"));
+dotenv_1.default.config();
+const FRONTEND_URL = "http://localhost:3001";
 // Initialise Express instance
 const app = (0, express_1.default)();
 console.log("config:", index_1.default);
 // Set CORS headers
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: FRONTEND_URL,
-//   })
-// );
+app.use((0, cors_1.default)());
 // Set the Express view engine to expect EJS templates
 // Bind cookie parser middleware to parse cookies in requests
 // app.use(cookieParser());

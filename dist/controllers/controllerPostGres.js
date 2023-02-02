@@ -21,7 +21,15 @@ const controllerFunctions = () => {
             response.status(200).json(yield employeeServices.getAllEmployees());
         }
         catch (_a) {
-            response.status(500).json({ errormessage: "Server error" });
+            response.status(500).json({ errorMessage: "Server error" });
+        }
+    });
+    const getAllDepartments = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            response.status(200).json(yield employeeServices.getAllDepartments());
+        }
+        catch (_b) {
+            response.status(500).json({ errorMessage: "Server error" });
         }
     });
     const createNewEmployee = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -30,8 +38,8 @@ const controllerFunctions = () => {
             const result = yield employeeServices.createNewEmployee(newEmployeeData);
             response.status(200).json(result);
         }
-        catch (_b) {
-            response.status(400).json({ "error message": "bad request" });
+        catch (_c) {
+            response.status(400).json({ errorMessage: "bad request" });
         }
     });
     const getOneEmployee = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -45,8 +53,8 @@ const controllerFunctions = () => {
                 response.status(200).json(result);
             }
         }
-        catch (_c) {
-            response.status(500).json({ errormessage: "Server error" });
+        catch (_d) {
+            response.status(500).json({ errorMessage: "Server error" });
         }
     });
     const updateEmployee = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -56,7 +64,7 @@ const controllerFunctions = () => {
                 const updatedEntry = request.body;
                 const result = yield employeeServices.updateEmployee(updatedId, updatedEntry);
                 if (result[0] == 0) {
-                    response.status(400).json({ errormessage: "Not Found" });
+                    response.status(400).json({ errorMessage: "Not Found" });
                 }
                 else {
                     response
@@ -64,12 +72,12 @@ const controllerFunctions = () => {
                         .json(Object.assign({ id: updatedId }, updatedEntry));
                 }
             }
-            catch (_d) {
-                response.status(404).json({ errormessage: "Bad Request" });
+            catch (_e) {
+                response.status(404).json({ errorMessage: "Bad Request" });
             }
         }
-        catch (_e) {
-            response.status(500).json({ errormessage: "Server error" });
+        catch (_f) {
+            response.status(500).json({ errorMessage: "Server error" });
         }
     });
     const deleteEmployee = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -80,15 +88,16 @@ const controllerFunctions = () => {
                 response.status(204).json();
             }
             else {
-                response.status(404).json({ errormessage: "Not found" });
+                response.status(404).json({ errorMessage: "Not found" });
             }
         }
-        catch (_f) {
-            response.status(500).json({ errormessage: "Server error" });
+        catch (_g) {
+            response.status(500).json({ errorMessage: "Server error" });
         }
     });
     return {
         getAllEmployees,
+        getAllDepartments,
         createNewEmployee,
         getOneEmployee,
         updateEmployee,

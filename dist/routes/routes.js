@@ -12,6 +12,7 @@ const controllerPostGres_1 = require("../controllers/controllerPostGres");
 const employeeControllers = (0, controllerPostGres_1.controllerFunctions)();
 const routes = (app) => {
     app.get("/employee", employeeControllers.getAllEmployees);
+    app.get("/departments", employeeControllers.getAllDepartments);
     app.post("/employee", employeeControllers.createNewEmployee);
     app.get("/employee/:emp_id", employeeControllers.getOneEmployee);
     app.put("/employee/:emp_id", employeeControllers.updateEmployee);

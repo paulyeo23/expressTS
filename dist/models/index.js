@@ -5,11 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.config = void 0;
 const sequelize_1 = require("sequelize");
-const config_js_1 = __importDefault(require("../config/config.js"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config({ path: "../.env" });
+const config_1 = __importDefault(require("../../config/config"));
 const employee_1 = __importDefault(require("./employee"));
 const Sequelize = require("sequelize");
 const env = "development";
-exports.config = config_js_1.default[env];
+exports.config = config_1.default[env];
 // const db: { [key: string]: sequelizePackage.Sequelize } = {};
 const sequelize = new Sequelize(exports.config.database, exports.config.username, exports.config.password, exports.config);
 const db = {

@@ -43,8 +43,17 @@ const employeeFunctions = () => {
             where: { id: id },
         });
     });
+    const getAllDepartments = () => __awaiter(void 0, void 0, void 0, function* () {
+        return {
+            departments: yield index_1.default.employees.findAll({
+                attributes: ["department"],
+                group: ["department"],
+            }),
+        };
+    });
     return {
         getAllEmployees,
+        getAllDepartments,
         createNewEmployee,
         getOneEmployee,
         updateEmployee,
