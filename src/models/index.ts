@@ -2,7 +2,7 @@ import sequelizePackage from "sequelize";
 import { Op } from "sequelize";
 import dotenv from "dotenv";
 dotenv.config({ path: "../.env" });
-import allConfig from "../../config/config";
+import { allConfig } from "../config/config";
 
 import initEmployeesModel from "./employee";
 const Sequelize = require("sequelize");

@@ -2,20 +2,18 @@ import { routes } from "./routes/routes";
 import express from "express";
 import config from "./models/index";
 import dotenv from "dotenv";
+import cors from "cors";
+
 dotenv.config();
-// const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const FRONTEND_URL = "http://localhost:3001";
 
 // Initialise Express instance
 const app = express();
 console.log("config:", config);
 
 // Set CORS headers
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: FRONTEND_URL,
-//   })
-// );
+app.use(cors());
+
 // Set the Express view engine to expect EJS templates
 // Bind cookie parser middleware to parse cookies in requests
 // app.use(cookieParser());

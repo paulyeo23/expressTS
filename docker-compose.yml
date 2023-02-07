@@ -10,7 +10,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/usr/app
+      - .:/usr/expressTS
       # - hostPath:containerPath:ro
     depends_on:
       - db

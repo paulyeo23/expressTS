@@ -1,3 +1,5 @@
+import express from "express";
+
 export enum departmentEnum {
   HR = "HR",
   PS = "PS",
@@ -21,9 +23,24 @@ export interface Data {
 }
 
 export interface crud {
-  getAllEmployees: Function;
-  createNewEmployee: Function;
-  getOneEmployee: Function;
-  updateEmployee: Function;
-  deleteEmployee: Function;
+  getAllEmployees: (
+    request: express.Request,
+    response: express.Response
+  ) => Promise<void>;
+  createNewEmployee: (
+    request: express.Request,
+    response: express.Response
+  ) => Promise<void>;
+  getOneEmployee: (
+    request: express.Request,
+    response: express.Response
+  ) => Promise<void>;
+  updateEmployee: (
+    request: express.Request,
+    response: express.Response
+  ) => Promise<void>;
+  deleteEmployee: (
+    request: express.Request,
+    response: express.Response
+  ) => Promise<void>;
 }

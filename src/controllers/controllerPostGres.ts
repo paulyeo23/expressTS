@@ -19,7 +19,18 @@ export const controllerFunctions = () => {
     try {
       response.status(200).json(await employeeServices.getAllEmployees());
     } catch {
-      response.status(500).json({ errormessage: "Server error" });
+      response.status(500).json({ errorMessage: "Server error" });
+    }
+  };
+
+  const getAllDepartments = async (
+    request: express.Request,
+    response: express.Response
+  ): Promise<void> => {
+    try {
+      response.status(200).json(await employeeServices.getAllDepartments());
+    } catch {
+      response.status(500).json({ errorMessage: "Server error" });
     }
   };
 
@@ -33,7 +44,7 @@ export const controllerFunctions = () => {
         await employeeServices.createNewEmployee(newEmployeeData);
       response.status(200).json(result);
     } catch {
-      response.status(400).json({ "error message": "bad request" });
+      response.status(400).json({ errorMessage: "bad request" });
     }
   };
 
@@ -51,7 +62,7 @@ export const controllerFunctions = () => {
         response.status(200).json(result);
       }
     } catch {
-      response.status(500).json({ errormessage: "Server error" });
+      response.status(500).json({ errorMessage: "Server error" });
     }
   };
 
@@ -67,17 +78,17 @@ export const controllerFunctions = () => {
         const result: [affectedcount: number] =
           await employeeServices.updateEmployee(updatedId, updatedEntry);
         if (result[0] == 0) {
-          response.status(400).json({ errormessage: "Not Found" });
+          response.status(400).json({ errorMessage: "Not Found" });
         } else {
           response
             .status(200)
             .json(Object.assign({ id: updatedId }, updatedEntry));
         }
       } catch {
-        response.status(404).json({ errormessage: "Bad Request" });
+        response.status(404).json({ errorMessage: "Bad Request" });
       }
     } catch {
-      response.status(500).json({ errormessage: "Server error" });
+      response.status(500).json({ errorMessage: "Server error" });
     }
   };
 
@@ -91,15 +102,16 @@ export const controllerFunctions = () => {
       if (results > 0) {
         response.status(204).json();
       } else {
-        response.status(404).json({ errormessage: "Not found" });
+        response.status(404).json({ errorMessage: "Not found" });
       }
     } catch {
-      response.status(500).json({ errormessage: "Server error" });
+      response.status(500).json({ errorMessage: "Server error" });
     }
   };
 
   return {
     getAllEmployees,
+    getAllDepartments,
     createNewEmployee,
     getOneEmployee,
     updateEmployee,

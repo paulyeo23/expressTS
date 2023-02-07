@@ -15,6 +15,7 @@ const employeeControllers = controllerFunctions();
 
 export const routes = (app: Application) => {
   app.get("/employee", employeeControllers.getAllEmployees);
+  app.get("/departments", employeeControllers.getAllDepartments);
   app.post("/employee", employeeControllers.createNewEmployee);
   app.get("/employee/:emp_id", employeeControllers.getOneEmployee);
   app.put("/employee/:emp_id", employeeControllers.updateEmployee);

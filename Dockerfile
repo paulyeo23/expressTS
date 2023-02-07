@@ -1,5 +1,5 @@
 FROM node:18.13-alpine3.16
-WORKDIR /usr/app
+WORKDIR /usr/expressTS
 COPY package.json ./
 RUN npm install
 COPY . .

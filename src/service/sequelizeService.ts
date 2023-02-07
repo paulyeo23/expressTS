@@ -3,9 +3,11 @@ import { newEmployeeData, employeeData } from "../interfaces/interfaces";
 import db from "../models/index";
 
 const employeeFunctions = () => {
-  const getAllEmployees = async () => {
+  const getAllEmployees = async (): Promise<{
+    employees: Model<employeeData>[];
+  }> => {
     return {
-      employees: await db.employees.findAll(),
+      employees: await db.employees.findAll({ order: [["id", "ASC"]] }),
     };
   };
 
@@ -47,8 +49,20 @@ const employeeFunctions = () => {
     });
   };
 
+  const getAllDepartments = async (): Promise<{
+    departments: Model<string>[];
+  }> => {
+    return {
+      departments: await db.employees.findAll({
+        attributes: ["department"],
+        group: ["department"],
+      }),
+    };
+  };
+
   return {
     getAllEmployees,
+    getAllDepartments,
     createNewEmployee,
     getOneEmployee,
     updateEmployee,
@@ -56,5 +70,3 @@ const employeeFunctions = () => {
   };
 };
 export default employeeFunctions;
-
-
