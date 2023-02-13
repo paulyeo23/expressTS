@@ -1,17 +1,15 @@
 import { Model, Sequelize } from "sequelize";
 
-class employee extends Model {
+class department extends Model {
   declare id: number;
-  declare name: string;
-  declare salary: number;
-  declare department: { department: string };
+  declare department: string;
 }
 
-export default function initEmployeesModel(
+export default function initDepartmentsModel(
   sequelize: Sequelize,
   DataTypes: any
 ) {
-  return employee.init(
+  return department.init(
     {
       id: {
         allowNull: false,
@@ -19,21 +17,16 @@ export default function initEmployeesModel(
         primaryKey: true,
         unique: true,
         type: DataTypes.INTEGER,
-        key: "id",
       },
-      name: {
+      department: {
         allowNull: false,
-        unique: false,
         type: DataTypes.STRING,
-      },
-      salary: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
+        unique: true,
       },
     },
     {
       sequelize,
-      modelName: "employees",
+      modelName: "departments",
       timestamps: false,
     }
   );

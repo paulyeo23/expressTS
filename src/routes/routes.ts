@@ -20,4 +20,5 @@ export const routes = (app: Application) => {
   app.get("/employee/:emp_id", employeeControllers.getOneEmployee);
   app.put("/employee/:emp_id", employeeControllers.updateEmployee);
   app.delete("/employee/:emp_id", employeeControllers.deleteEmployee);
+  app.post("/login", employeeControllers.login);
 };

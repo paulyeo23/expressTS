@@ -1,31 +1,41 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-class employee extends sequelize_1.Model {
+class user extends sequelize_1.Model {
 }
-function initEmployeesModel(sequelize, DataTypes) {
-    return employee.init({
+function initUsersModel(sequelize, DataTypes) {
+    return user.init({
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
             unique: true,
             type: DataTypes.INTEGER,
-            key: "id",
         },
-        name: {
+        username: {
+            allowNull: false,
+            unique: true,
+            type: DataTypes.STRING,
+        },
+        password: {
             allowNull: false,
             unique: false,
             type: DataTypes.STRING,
         },
-        salary: {
-            allowNull: false,
+        departmentId: {
             type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: {
+                    tableName: "departments",
+                },
+            },
+            key: "id",
         },
     }, {
         sequelize,
-        modelName: "employees",
+        modelName: "users",
         timestamps: false,
     });
 }
-exports.default = initEmployeesModel;
+exports.default = initUsersModel;

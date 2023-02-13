@@ -1,10 +1,11 @@
-import sequelizePackage from "sequelize";
 import { Op } from "sequelize";
 import dotenv from "dotenv";
 dotenv.config({ path: "../.env" });
 import { allConfig } from "../config/config";
 
 import initEmployeesModel from "./employee";
+import initDepartmentsModel from "./departments";
+import initusersModel from "./users";
 const Sequelize = require("sequelize");
 
 const env = "development";
@@ -18,12 +19,18 @@ const sequelize = new Sequelize(
   config.password,
   config
 );
+
 const db = {
   employees: initEmployeesModel(sequelize, Sequelize.DataTypes),
+  departments: initDepartmentsModel(sequelize, Sequelize.DataTypes),
+  users: initusersModel(sequelize, Sequelize.DataTypes),
   sequelize: sequelize,
   Sequelize: Sequelize,
   Op: Op,
 };
+
+db.departments.hasMany(db.employees, { foreignKey: "departmentId" });
+db.employees.belongsTo(db.departments, { foreignKey: "departmentId" });
 // db.employees = initEmployeesModel(sequelize, Sequelize.DataTypes);
 
 // db.sequelize = sequelize;

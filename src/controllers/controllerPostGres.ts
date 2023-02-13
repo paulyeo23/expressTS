@@ -2,12 +2,9 @@ import employeeFunctions from "../service/sequelizeService";
 
 import express from "express";
 
-import {
-  crud as crudType,
-  employeeData,
-  newEmployeeData,
-} from "../interfaces/interfaces";
+import { employeeData, newEmployeeData } from "../interfaces/interfaces";
 import { Model } from "sequelize";
+import jwt from "jsonwebtoken";
 
 const employeeServices = employeeFunctions();
 
@@ -16,8 +13,31 @@ export const controllerFunctions = () => {
     request: express.Request,
     response: express.Response
   ): Promise<void> => {
+    let token: string = "";
+    if (request.headers?.authorization?.startsWith("Bearer ")) {
+      token = request.headers.authorization.substring(
+        7,
+        request.headers.authorization.length
+      );
+    }
+    console.log(request.headers.authorization);
+
     try {
-      response.status(200).json(await employeeServices.getAllEmployees());
+      if (token == "") {
+        response.status(401).json({ errorMessage: "Please log in" });
+      } else {
+        try {
+          const decoded = jwt.verify(token, employeeServices.secret) as {
+            userId: number;
+            departmentId: number;
+          };
+          response
+            .status(200)
+            .json(await employeeServices.getAllEmployees(decoded.departmentId));
+        } catch {
+          response.status(400).json({ errorMessage: "Invalid Token" });
+        }
+      }
     } catch {
       response.status(500).json({ errorMessage: "Server error" });
     }
@@ -67,13 +87,13 @@ export const controllerFunctions = () => {
   };
 
   const updateEmployee = async (
-    request: express.Request,
+    request: express.Request<{ emp_id: number }, any, newEmployeeData>,
     response: express.Response
   ): Promise<void> => {
     try {
       try {
-        const updatedId: number = Number(request.params.emp_id);
-        const updatedEntry: newEmployeeData = request.body;
+        const updatedId = request.params.emp_id;
+        const updatedEntry = request.body;
 
         const result: [affectedcount: number] =
           await employeeServices.updateEmployee(updatedId, updatedEntry);
@@ -93,17 +113,34 @@ export const controllerFunctions = () => {
   };
 
   const deleteEmployee = async (
-    request: express.Request,
+    request: express.Request<{ emp_id: number }>,
     response: express.Response
   ): Promise<void> => {
     try {
-      const deletedId: number = Number(request.params.emp_id);
+      const deletedId: number = request.params.emp_id;
       const results: number = await employeeServices.deleteEmployee(deletedId);
       if (results > 0) {
         response.status(204).json();
       } else {
         response.status(404).json({ errorMessage: "Not found" });
       }
+    } catch {
+      response.status(500).json({ errorMessage: "Server error" });
+    }
+  };
+
+  const login = async (
+    request: express.Request<any, any, { username: string; password: string }>,
+    response: express.Response
+  ): Promise<void> => {
+    try {
+      const dbResponse = await employeeServices.login(
+        request.body.username,
+        request.body.password
+      );
+      dbResponse == undefined
+        ? response.status(401).json({ errorMessage: "Bad login" })
+        : response.status(200).json({ token: dbResponse });
     } catch {
       response.status(500).json({ errorMessage: "Server error" });
     }
@@ -116,5 +153,6 @@ export const controllerFunctions = () => {
     getOneEmployee,
     updateEmployee,
     deleteEmployee,
+    login,
   };
 };

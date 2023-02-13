@@ -5,21 +5,24 @@ export enum departmentEnum {
   PS = "PS",
 }
 
-export interface employeeData {
-  id: number;
-  name: string;
-  salary: number;
-  department: departmentEnum;
-}
-
 export interface newEmployeeData {
   name: string;
   salary: number;
-  department: departmentEnum;
+  departmentId: number;
+}
+
+export interface employeeData extends Omit<newEmployeeData, "departmentId"> {
+  id: number;
+  department: string;
 }
 
 export interface Data {
   employees: employeeData[];
+}
+
+export interface departmentData {
+  id: number;
+  department: string;
 }
 
 export interface crud {
